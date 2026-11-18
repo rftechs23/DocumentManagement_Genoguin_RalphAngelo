@@ -72,7 +72,7 @@ Invalid or empty uploads return `400`; files over 10 MiB return `413`. Error res
 
 ## File validation and storage behavior
 
-The API accepts any non-empty file up to 10 MiB. The assessment does not specify an allowlist, so file extensions are not restricted and file contents are not inspected for malware or verified against the submitted media type. The content type is treated as client-supplied metadata and falls back to `application/octet-stream` if it is invalid.
+The API accepts any non-empty file up to 10 MiB. It does not restrict file extensions, inspect file contents, or scan uploads for malware. The submitted content type is treated as client-provided metadata rather than verified evidence of the file format; invalid values fall back to `application/octet-stream`.
 
 The submitted filename is reduced to a basename for display. It is never used as a storage path. The filesystem adapter creates a random identifier for each file, rejects identifiers that are not in the expected generated format, and writes under the configured root. Uploads are removed if metadata persistence fails. Deletion first stages the file under a temporary `.deleting` directory so it can be restored if deleting the database row fails. SQL Server and the filesystem do not share a transaction; an abrupt failure between writing a file and saving metadata can leave an unreferenced file, and a failure during deletion can leave a staged file for manual cleanup. There is no background orphan-file cleanup task.
 
