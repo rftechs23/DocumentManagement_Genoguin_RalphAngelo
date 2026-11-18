@@ -1,6 +1,7 @@
 using DocumentManagement.Application.Abstractions;
 using DocumentManagement.Infrastructure.Data;
 using DocumentManagement.Infrastructure.Repositories;
+using DocumentManagement.Infrastructure.Storage;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,6 +20,9 @@ public static class DependencyInjection
 
         services.AddDbContext<DocumentDbContext>(options => options.UseSqlServer(connectionString));
         services.AddScoped<IDocumentRepository, DocumentRepository>();
+
+        var storageRootPath = configuration["DocumentStorage:RootPath"] ?? "App_Data/Documents";
+        services.AddSingleton<IFileStorage>(new FileSystemDocumentStorage(storageRootPath));
 
         return services;
     }
