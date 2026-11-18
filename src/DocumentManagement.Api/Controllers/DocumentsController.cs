@@ -16,7 +16,7 @@ public sealed class DocumentsController(IDocumentService documentService) : Cont
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status400BadRequest)]
     [ProducesResponseType<ProblemDetails>(StatusCodes.Status413PayloadTooLarge)]
     public async Task<ActionResult<DocumentMetadataDto>> Upload(
-        [FromForm(Name = "file")] IFormFile? file,
+        IFormFile? file,
         CancellationToken cancellationToken)
     {
         if (file is null)
