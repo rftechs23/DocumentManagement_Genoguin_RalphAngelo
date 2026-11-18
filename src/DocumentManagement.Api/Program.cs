@@ -5,6 +5,7 @@ using Microsoft.OpenApi;
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
+builder.Services.AddProblemDetails();
 builder.Services.AddSwaggerGen(options =>
     options.SwaggerDoc("v1", new OpenApiInfo
     {
@@ -15,6 +16,8 @@ builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddScoped<IDocumentService, DocumentService>();
 
 var app = builder.Build();
+
+app.UseExceptionHandler();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
