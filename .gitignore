@@ -1,0 +1,9 @@
+# Local development planning notes
+/development-master-plan.md
+
+# .NET build output and IDE state
+**/bin/
+**/obj/
+.vs/
+*.user
+*.suo
