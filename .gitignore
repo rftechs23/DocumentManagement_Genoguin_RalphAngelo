@@ -7,3 +7,4 @@
 .vs/
 *.user
 *.suo
+/src/DocumentManagement.Api/App_Data/Documents/

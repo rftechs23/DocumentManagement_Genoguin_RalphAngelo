@@ -10,9 +10,9 @@ public sealed class FileSystemDocumentStorage : IFileStorage
     private readonly string _rootPath;
     private readonly string _deletionPath;
 
-    public FileSystemDocumentStorage(string rootPath)
+    public FileSystemDocumentStorage(string rootPath, string contentRootPath)
     {
-        _rootPath = Path.GetFullPath(rootPath, Directory.GetCurrentDirectory());
+        _rootPath = Path.GetFullPath(rootPath, contentRootPath);
         _deletionPath = Path.Combine(_rootPath, DeletionDirectoryName);
     }
 

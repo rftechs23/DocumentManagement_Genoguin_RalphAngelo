@@ -12,7 +12,7 @@ builder.Services.AddSwaggerGen(options =>
         Title = "Document Management API",
         Version = "v1"
     }));
-builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddInfrastructure(builder.Configuration, builder.Environment.ContentRootPath);
 builder.Services.AddScoped<IDocumentService, DocumentService>();
 
 var app = builder.Build();

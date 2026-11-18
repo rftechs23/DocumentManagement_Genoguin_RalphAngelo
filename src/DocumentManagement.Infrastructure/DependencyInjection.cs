@@ -12,7 +12,8 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddInfrastructure(
         this IServiceCollection services,
-        IConfiguration configuration)
+        IConfiguration configuration,
+        string contentRootPath)
     {
         var connectionString = configuration.GetConnectionString("DefaultConnection")
             ?? throw new InvalidOperationException(
@@ -22,7 +23,8 @@ public static class DependencyInjection
         services.AddScoped<IDocumentRepository, DocumentRepository>();
 
         var storageRootPath = configuration["DocumentStorage:RootPath"] ?? "App_Data/Documents";
-        services.AddSingleton<IFileStorage>(new FileSystemDocumentStorage(storageRootPath));
+        services.AddSingleton<IFileStorage>(
+            new FileSystemDocumentStorage(storageRootPath, contentRootPath));
 
         return services;
     }
